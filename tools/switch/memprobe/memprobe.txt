@@ -1,0 +1,210 @@
+
+=============== goldeneye-nx memprobe v2 ===============
+this .nro: main @0x4751ae180  heap block @0x1a163eb30  stack var @0x75961fc8
+applet type: 0 (0 = application / title takeover)
+memory: total 3189 MiB, used 3185 MiB
+own process handle available: yes
+
+regions:
+  heap   0x01a1600000 - 0x03a1600000  (  8192 MiB)
+  alias  0x0bd8800000 - 0x0d58800000  (  6144 MiB)
+  stack  0x0008000000 - 0x0080000000  (  1920 MiB)
+  aslr   0x0008000000 - 0x1000000000  ( 65408 MiB)
+
+free 4 GiB-aligned slots (cart 32M @+0x10000000, dram 8M @+0x70000000, stack 16M @+0xA0000000):
+  stack  single base:   0 candidate(s)
+         cart  alone :   1 candidate(s), first H=0x0000000000
+         dram  alone :   1 candidate(s), first H=0x0000000000
+         stack alone :   0 candidate(s)
+  alias  single base:   1 candidate(s), first H=0x0c00000000
+         cart  alone :   2 candidate(s), first H=0x0c00000000
+         dram  alone :   1 candidate(s), first H=0x0c00000000
+         stack alone :   1 candidate(s), first H=0x0c00000000
+  aslr   single base:  11 candidate(s), first H=0x0100000000
+         cart  alone :  11 candidate(s), first H=0x0100000000
+         dram  alone :  12 candidate(s), first H=0x0100000000
+         stack alone :  13 candidate(s), first H=0x0000000000
+
+[A] svcMapMemory heap -> stack region
+      cart  svcMapMemory rc=0x0
+      cart  @0x0010000000  rw=OK  (u32)ptr=0x10000000 OK
+      cart  unmap rc=0x0
+      dram  svcMapMemory rc=0x0
+      dram  @0x0070000000  rw=OK  (u32)ptr=0x70000000 OK
+      dram  unmap rc=0x0
+      stack no free aligned slot
+
+[B] svcMapPhysicalMemory -> alias region
+      cart  svcMapPhysicalMemory rc=0xfa01
+      dram  svcMapPhysicalMemory rc=0xfa01
+      stack svcMapPhysicalMemory rc=0xfa01
+
+[C] svcMapProcessCodeMemory + RW -> ASLR/code region
+      own process handle: 0x481fa
+      cart  svcMapProcessCodeMemory rc=0x0
+      cart  set RW rc=0x0
+      cart  @0x0110000000  rw=OK  (u32)ptr=0x10000000 OK
+      cart  unmap rc=0x0
+      dram  svcMapProcessCodeMemory rc=0x0
+      dram  set RW rc=0x0
+      dram  @0x0170000000  rw=OK  (u32)ptr=0x70000000 OK
+      dram  unmap rc=0x0
+      stack svcMapProcessCodeMemory rc=0x0
+      stack set RW rc=0x0
+      stack @0x01a0000000  rw=OK  (u32)ptr=0xa0000000 OK
+      stack unmap rc=0x0
+
+[D] identity layout H=0 (PORT_ADDR_BASE == 0, like PC)
+      cart  svcMapMemory @0x0010000000 rc=0x0
+      dram  svcMapMemory @0x0070000000 rc=0x0
+      stack svcMapProcessCodeMemory @0x00a0000000 rc=0x0
+      stack set RW rc=0x0
+      cart  @0x0010000000  rw=OK  (u32)ptr=0x10000000 OK
+      dram  @0x0070000000  rw=OK  (u32)ptr=0x70000000 OK
+      stack @0x00a0000000  rw=OK  (u32)ptr=0xa0000000 OK
+      => identity layout WORKS
+      cart  unmap rc=0x0
+      dram  unmap rc=0x0
+      stack unmap rc=0x0
+
+done. log: sdmc:/switch/memprobe.txt  -- press + to exit
+
+=============== goldeneye-nx memprobe v2 ===============
+this .nro: main @0x9b0692180  heap block @0x1a163eb30  stack var @0x75961fc8
+applet type: 0 (0 = application / title takeover)
+memory: total 3189 MiB, used 3185 MiB
+own process handle available: yes
+
+regions:
+  heap   0x01a1600000 - 0x03a1600000  (  8192 MiB)
+  alias  0x0bd8800000 - 0x0d58800000  (  6144 MiB)
+  stack  0x0008000000 - 0x0080000000  (  1920 MiB)
+  aslr   0x0008000000 - 0x1000000000  ( 65408 MiB)
+
+free 4 GiB-aligned slots (cart 32M @+0x10000000, dram 8M @+0x70000000, stack 16M @+0xA0000000):
+  stack  single base:   0 candidate(s)
+         cart  alone :   1 candidate(s), first H=0x0000000000
+         dram  alone :   1 candidate(s), first H=0x0000000000
+         stack alone :   0 candidate(s)
+  alias  single base:   1 candidate(s), first H=0x0c00000000
+         cart  alone :   2 candidate(s), first H=0x0c00000000
+         dram  alone :   1 candidate(s), first H=0x0c00000000
+         stack alone :   1 candidate(s), first H=0x0c00000000
+  aslr   single base:  11 candidate(s), first H=0x0100000000
+         cart  alone :  11 candidate(s), first H=0x0100000000
+         dram  alone :  12 candidate(s), first H=0x0100000000
+         stack alone :  13 candidate(s), first H=0x0000000000
+
+[A] svcMapMemory heap -> stack region
+      cart  svcMapMemory rc=0x0
+      cart  @0x0010000000  rw=OK  (u32)ptr=0x10000000 OK
+      cart  unmap rc=0x0
+      dram  svcMapMemory rc=0x0
+      dram  @0x0070000000  rw=OK  (u32)ptr=0x70000000 OK
+      dram  unmap rc=0x0
+      stack no free aligned slot
+
+[B] svcMapPhysicalMemory -> alias region
+      cart  svcMapPhysicalMemory rc=0xfa01
+      dram  svcMapPhysicalMemory rc=0xfa01
+      stack svcMapPhysicalMemory rc=0xfa01
+
+[C] svcMapProcessCodeMemory + RW -> ASLR/code region
+      own process handle: 0x481fa
+      cart  svcMapProcessCodeMemory rc=0x0
+      cart  set RW rc=0x0
+      cart  @0x0110000000  rw=OK  (u32)ptr=0x10000000 OK
+      cart  unmap rc=0x0
+      dram  svcMapProcessCodeMemory rc=0x0
+      dram  set RW rc=0x0
+      dram  @0x0170000000  rw=OK  (u32)ptr=0x70000000 OK
+      dram  unmap rc=0x0
+      stack svcMapProcessCodeMemory rc=0x0
+      stack set RW rc=0x0
+      stack @0x01a0000000  rw=OK  (u32)ptr=0xa0000000 OK
+      stack unmap rc=0x0
+
+[D] identity layout H=0 (PORT_ADDR_BASE == 0, like PC)
+      cart  svcMapMemory @0x0010000000 rc=0x0
+      dram  svcMapMemory @0x0070000000 rc=0x0
+      stack svcMapProcessCodeMemory @0x00a0000000 rc=0x0
+      stack set RW rc=0x0
+      cart  @0x0010000000  rw=OK  (u32)ptr=0x10000000 OK
+      dram  @0x0070000000  rw=OK  (u32)ptr=0x70000000 OK
+      stack @0x00a0000000  rw=OK  (u32)ptr=0xa0000000 OK
+      => identity layout WORKS
+      cart  unmap rc=0x0
+      dram  unmap rc=0x0
+      stack unmap rc=0x0
+
+done. log: sdmc:/switch/memprobe.txt  -- press + to exit
+
+=============== goldeneye-nx memprobe v2 ===============
+this .nro: main @0xe19f88180  heap block @0x1a163eb30  stack var @0x75961fc8
+applet type: 0 (0 = application / title takeover)
+memory: total 3189 MiB, used 3185 MiB
+own process handle available: yes
+
+regions:
+  heap   0x01a1600000 - 0x03a1600000  (  8192 MiB)
+  alias  0x0bd8800000 - 0x0d58800000  (  6144 MiB)
+  stack  0x0008000000 - 0x0080000000  (  1920 MiB)
+  aslr   0x0008000000 - 0x1000000000  ( 65408 MiB)
+
+free 4 GiB-aligned slots (cart 32M @+0x10000000, dram 8M @+0x70000000, stack 16M @+0xA0000000):
+  stack  single base:   0 candidate(s)
+         cart  alone :   1 candidate(s), first H=0x0000000000
+         dram  alone :   1 candidate(s), first H=0x0000000000
+         stack alone :   0 candidate(s)
+  alias  single base:   1 candidate(s), first H=0x0c00000000
+         cart  alone :   2 candidate(s), first H=0x0c00000000
+         dram  alone :   1 candidate(s), first H=0x0c00000000
+         stack alone :   1 candidate(s), first H=0x0c00000000
+  aslr   single base:  11 candidate(s), first H=0x0100000000
+         cart  alone :  11 candidate(s), first H=0x0100000000
+         dram  alone :  12 candidate(s), first H=0x0100000000
+         stack alone :  13 candidate(s), first H=0x0000000000
+
+[A] svcMapMemory heap -> stack region
+      cart  svcMapMemory rc=0x0
+      cart  @0x0010000000  rw=OK  (u32)ptr=0x10000000 OK
+      cart  unmap rc=0x0
+      dram  svcMapMemory rc=0x0
+      dram  @0x0070000000  rw=OK  (u32)ptr=0x70000000 OK
+      dram  unmap rc=0x0
+      stack no free aligned slot
+
+[B] svcMapPhysicalMemory -> alias region
+      cart  svcMapPhysicalMemory rc=0xfa01
+      dram  svcMapPhysicalMemory rc=0xfa01
+      stack svcMapPhysicalMemory rc=0xfa01
+
+[C] svcMapProcessCodeMemory + RW -> ASLR/code region
+      own process handle: 0x481fa
+      cart  svcMapProcessCodeMemory rc=0x0
+      cart  set RW rc=0x0
+      cart  @0x0110000000  rw=OK  (u32)ptr=0x10000000 OK
+      cart  unmap rc=0x0
+      dram  svcMapProcessCodeMemory rc=0x0
+      dram  set RW rc=0x0
+      dram  @0x0170000000  rw=OK  (u32)ptr=0x70000000 OK
+      dram  unmap rc=0x0
+      stack svcMapProcessCodeMemory rc=0x0
+      stack set RW rc=0x0
+      stack @0x01a0000000  rw=OK  (u32)ptr=0xa0000000 OK
+      stack unmap rc=0x0
+
+[D] identity layout H=0 (PORT_ADDR_BASE == 0, like PC)
+      cart  svcMapMemory @0x0010000000 rc=0x0
+      dram  svcMapMemory @0x0070000000 rc=0x0
+      stack svcMapProcessCodeMemory @0x00a0000000 rc=0x0
+      stack set RW rc=0x0
+      cart  @0x0010000000  rw=OK  (u32)ptr=0x10000000 OK
+      dram  @0x0070000000  rw=OK  (u32)ptr=0x70000000 OK
+      stack @0x00a0000000  rw=OK  (u32)ptr=0xa0000000 OK
+      => identity layout WORKS
+      cart  unmap rc=0x0
+      dram  unmap rc=0x0
+      stack unmap rc=0x0
+
+done. log: sdmc:/switch/memprobe.txt  -- press + to exit
