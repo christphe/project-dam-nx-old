@@ -231,6 +231,8 @@ static char s_unknownFirst[48];
 static const char *const kRetiredKeys[] = {
     "Input.MenuPointerMode",   /* D574 */
     "Input.MenuPointerSpeed",  /* D574 */
+    "Input.PadAimSens",        /* project-dam 0.1.0 aim curve, retired */
+    "Input.PadAimCurve",       /* project-dam 0.1.0 aim curve, retired */
 };
 
 static void applyKV(const char *dottedKey, const char *val)

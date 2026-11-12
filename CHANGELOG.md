@@ -1,17 +1,13 @@
 # Changelog
 
-All notable changes to Project Dam, the Nintendo Switch port of the
-[GoldenEye 007 PC port](https://github.com/jkdansereau/goldeneye-pc-port).
-The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and the project uses [Semantic Versioning](https://semver.org/). Releases are
-tagged `project-dam-vX.Y.Z`; the `vX.Y.Z` tags are upstream's.
-
-Changes to the game itself (fixes, options, the PC builds) come from upstream
-and are listed in its release notes; this version is built on upstream v0.6.0.
-
 ## [Unreleased] - minor
 
+### Added
+- Aim sensitivity on the Controller page: how fast the right stick turns while aiming
+
 ### Changed
+- The options no longer show the Mouse and Key Bindings pages, which need a mouse or a keyboard; Aim sensitivity replaces the aim-mode sensitivity and precision curve options
+- Aim style moves to the Controller page and is Centered by default: the right stick turns the camera and the view stays where it is when the stick is released (Original keeps the N64 crosshair)
 - Faster rendering of busy scenes: vertex data goes to the GPU through one streaming buffer instead of a new buffer per draw, about three times cheaper per draw on the console
 
 ### Fixed

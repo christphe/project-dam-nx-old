@@ -304,6 +304,7 @@ static struct Row rows[] = {
     { .key="Input.MouseInvertY", .label="Invert look", .kind=ROW_TOGGLE, .step=1, .names=kOnOff },
     { .key="Input.MouseSmoothing", .label="Smoothing", .kind=ROW_SLIDER, .step=5, .unit="%" },
     { .key="Input.MouseRawInput", .label="Raw input", .kind=ROW_TOGGLE, .step=1, .names=kOnOff },
+#if !defined(__SWITCH__)   /* project-dam: on the Controller page there (no Mouse page) */
     /* D337: N64 = the N64 aim model (crosshair travels, camera edge-scrolls)
      * with the mouse fed through the game's integrator at PD's mouse damp --
      * the default. CENTRED (PC) = opt-in FPS-style aim (#104), not N64.
@@ -312,6 +313,7 @@ static struct Row rows[] = {
     /* D338: how far the N64-style crosshair travels. Hidden while the aim
      * style is CENTRED (PC), where the crosshair doesn't travel. */
     { .key="Input.AimRange", .label="Aim range", .kind=ROW_ENUM, .step=1, .names=kAimRange, .hiddenIfOn="Input.AimMode" },
+#endif
     /* Existing ini-only keys exposed by the PD-parity regroup (rows only; input.c
      * already reads them). */
     { .key="Input.CrosshairCursor", .label="Crosshair pointer", .kind=ROW_TOGGLE, .step=1, .names=kOnOff },
@@ -346,14 +348,20 @@ static struct Row rows[] = {
     { .key="Input.Pad.PrevWeapon", .label="Previous weapon", .kind=ROW_PADBIND, .shownWhen="Input.PadPreset", .shownValue=3, .schemeOnly=1 },
     { .key="Input.Pad.Gadget", .label="Cycle gadget", .kind=ROW_PADBIND, .shownWhen="Input.PadPreset", .shownValue=3, .schemeOnly=1 },
     { .key="Input.Pad.Start", .label="Pause/start", .kind=ROW_PADBIND, .shownWhen="Input.PadPreset", .shownValue=3, .schemeOnly=1 },
+#if defined(__SWITCH__)
+    /* project-dam: the aim rows live here on the console (no Mouse page). */
+    { .key="Input.AimMode", .label="Aim style", .kind=ROW_ENUM, .step=1, .names=kAimMode },
+    { .key="Input.AimRange", .label="Aim range", .kind=ROW_ENUM, .step=1, .names=kAimRange, .hiddenIfOn="Input.AimMode" },
+#endif
     { .key="Input.PadLookInvertY", .label="Invert look", .kind=ROW_TOGGLE, .step=1, .names=kOnOff },
     /* Wave A: per-stick deadzone + right-stick (natural-pitch) feel options. */
     { .key="Input.PadDeadzoneL", .label="Left stick deadzone", .kind=ROW_SLIDER, .step=300, .unit="%", .dispDiv=300 },
     { .key="Input.PadDeadzoneR", .label="Right stick deadzone", .kind=ROW_SLIDER, .step=300, .unit="%", .dispDiv=300 },
     { .key="Input.PadLookSensX", .label="Horizontal look sensitivity", .kind=ROW_SLIDER, .step=5 },
     { .key="Input.PadLookSensY", .label="Vertical look sensitivity", .kind=ROW_SLIDER, .step=5 },
-    { .key="Input.PadAimSens", .label="Aim-mode sensitivity", .kind=ROW_SLIDER, .step=5 },   /* project-dam */
-    { .key="Input.PadAimCurve", .label="Aim-mode precision curve", .kind=ROW_SLIDER, .step=10 },
+#if defined(__SWITCH__)
+    { .key="Input.PadAimLookSens", .label="Aim sensitivity", .kind=ROW_SLIDER, .step=5 },   /* project-dam */
+#endif
     { .key="Input.PadLookSmooth", .label="Look smoothing", .kind=ROW_SLIDER, .step=1 },   /* D506: raw 0-10, shown as whole % */
     { .key="Input.PadSouthpaw", .label="Southpaw", .kind=ROW_TOGGLE, .step=1, .names=kOnOff },
     { .key="Input.PadTriggerPct", .label="Trigger threshold", .kind=ROW_SLIDER, .step=1, .unit="%" },   /* D506: raw is already a percent */
@@ -473,7 +481,12 @@ static struct Row rows[] = {
 /* Hub / tab order (PD's Extended hub: Video, Audio, Mouse, Controller, Game,
  * Key Bindings). Differs from the physical order so the hub rows stay with Game. */
 static const char *const kRootOrder[] = {
+#if defined(__SWITCH__)
+    /* project-dam: no mouse or keyboard on the console. */
+    "__HdrVideo", "__HdrAudio", "__HdrSelPlayerC", "__HdrGame",
+#else
     "__HdrVideo", "__HdrAudio", "__HdrMouse", "__HdrSelPlayerC", "__HdrGame", "__HdrBindings",
+#endif
 };
 #define NUM_ROOTS ((int)(sizeof(kRootOrder) / sizeof(kRootOrder[0])))
 #define NUM_ROWS ((int)(sizeof(rows) / sizeof(rows[0])))
@@ -2109,7 +2122,11 @@ static const struct { const char *key; double def; } kResetDefaults[] = {
     { "Input.MouseSensitivity", 100 },  /* static int mouseSensitivity = 100 */
     { "Input.MouseYScale",      100 },  /* = 100 (native), Wave A item 6 */
     { "Input.MouseInvertY",      0 },   /* = 0 */
+#if defined(__SWITCH__)
+    { "Input.AimMode",           1 },   /* project-dam: = AIMMODE_CENTRED on the console */
+#else
     { "Input.AimMode",           0 },   /* = AIMMODE_N64 (0) */
+#endif
     { "Input.AimRange",          0 },   /* = 0 (PC) */
     { "Input.PadLookInvertY",    0 },   /* = 0 */
     { "Input.PadDeadzoneL",     7500 },/* = STICK_DEADZONE (7500 = 25%, D546), Wave A */
@@ -2117,11 +2134,7 @@ static const struct { const char *key; double def; } kResetDefaults[] = {
     { "Input.PadLookSensX",     100 },  /* = 100 (native), Wave A */
     { "Input.PadLookSensY",     100 },  /* = 100 (native), Wave A */
 #if defined(__SWITCH__)
-    { "Input.PadAimSens",        70 },  /* project-dam: = padAimSens */
-    { "Input.PadAimCurve",      200 },
-#else
-    { "Input.PadAimSens",       100 },
-    { "Input.PadAimCurve",      100 },
+    { "Input.PadAimLookSens",   100 },  /* project-dam: = 1.0x */
 #endif
     { "Input.PadLookSmooth",      0 },  /* = 0 (off), Wave A */
     { "Input.PadSouthpaw",        0 },  /* = 0 (off), Wave A */
@@ -3051,8 +3064,7 @@ static void valueText(int i, char *out, int n)
     }
     /* D506: multipliers (raw 100 = 1.0x): vertical mouse and controller look sensitivity. */
     if (!strcmp(r->key, "Input.MouseYScale") || !strcmp(r->key, "Input.PadLookSensX") ||
-        !strcmp(r->key, "Input.PadLookSensY") || !strcmp(r->key, "Input.PadAimSens") ||
-        !strcmp(r->key, "Input.PadAimCurve")) {
+        !strcmp(r->key, "Input.PadLookSensY") || !strcmp(r->key, "Input.PadAimLookSens")) {
         snprintf(out, n, "%.1fx", v / 100.0);
         return;
     }
